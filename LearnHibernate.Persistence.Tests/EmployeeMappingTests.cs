@@ -134,7 +134,7 @@ namespace LearnHibernate.Persistence.Tests
             };
 
             dummy.MailingAddress = mailingAdress;
-            mailingAdress.Employee = dummy;
+            //mailingAdress.Employee = dummy;
 
             using (var trans= session.BeginTransaction())
             {
@@ -149,7 +149,7 @@ namespace LearnHibernate.Persistence.Tests
                 var employee = await session.GetAsync<Employee>(id);
                 Assert.Equal("Line 1", employee.MailingAddress.AddressLine1);
                 Assert.Equal("Line 2", employee.MailingAddress.AddressLine2);
-                Assert.Equal("Awesome", employee.MailingAddress.Employee.FirstName);
+                //Assert.Equal("Awesome", employee.MailingAddress.Employee.FirstName);
                 await trans.CommitAsync();
             }
         }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<!--<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="LearnHibernate.Entity"
                    namespace="LearnHibernate.Entity"
@@ -14,4 +14,4 @@
     <property name="PostalCode" column="postal_code"/>
     <many-to-one name="Employee" class="Employee" column="employee_id" unique="true"></many-to-one>
   </class>
-</hibernate-mapping>
+</hibernate-mapping>-->

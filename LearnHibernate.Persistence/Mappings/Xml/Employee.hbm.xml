@@ -29,7 +29,16 @@
       </many-to-many>
     </set>
 
+    <!--address as a component-->
+    <component name="MailingAddress" class="Address">
+      <property name="AddressLine1" column="address_line1"/>
+      <property name="AddressLine2" column="address_line2"/>
+      <property name="City" />
+      <property name="State" />
+      <property name="PostalCode" column="postal_code"/>
+    </component>
+    
     <!--One to one address entity semantics-->
-    <one-to-one name="MailingAddress" class="Address" property-ref="Employee" cascade="all"></one-to-one>
+    <!--<one-to-one name="MailingAddress" class="Address" property-ref="Employee" cascade="all"></one-to-one>-->
   </class>
 </hibernate-mapping>
