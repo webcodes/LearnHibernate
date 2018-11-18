@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="LearnHibernate.Entity.Address">
+    <Position X="7" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIIAAAAAAAAAAAAAAAAAAABAAQAAA=</HashCode>
+      <FileName>Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnHibernate.Entity.Benefit">
+    <Position X="12" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Benefit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnHibernate.Entity.Employee">
+    <Position X="17.25" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAEAAAAAAAAAAAAAAAAQAAAAAAAACAAAAgkAAAAg=</HashCode>
+      <FileName>Employee.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Address" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Benefits" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="LearnHibernate.Entity.Leave">
+    <Position X="9.5" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAARAAAAAAAAA=</HashCode>
+      <FileName>Leave.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Type" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LearnHibernate.Entity.SeasonTicketLoan">
+    <Position X="14.75" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAACgAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>SeasonTicketLoan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnHibernate.Entity.TrainingAllowance">
+    <Position X="12.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAEA=</HashCode>
+      <FileName>TrainingAllowance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnHibernate.Entity.Entity">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="LearnHibernate.Entity.LeaveType">
+    <Position X="10" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAACIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LeaveType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

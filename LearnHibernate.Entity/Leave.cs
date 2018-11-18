@@ -3,8 +3,8 @@
 
     public class Leave : Benefit
     {
-        public int Entitlement { get; set; }
-        public int Remaining { get; set; }
-        public LeaveType Type { get; set; }
+        public virtual int AvailableEntitlement { get; set; }
+        public virtual int RemainingEntitlement { get; set; }
+        public virtual LeaveType Type { get; set; }
     }
 }

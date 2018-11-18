@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="LearnHibernate.Entity"
+                   namespace="LearnHibernate.Entity"
+                   schema="LearnNH"
+                   default-lazy="true">
+
+  <class name="Address" mutable="true" table="lnh_address" >
+    <id name="Id" column="address_id" generator="hilo"></id>
+    <property name ="AddressLine1" column="address_line1"></property>
+    <property name="AddressLine2" column="address_line2"/>
+    <property name="City" />
+    <property name="State" />
+    <property name="PostalCode" column="postal_code"/>
+    <many-to-one name="Employee" class="Employee" column="employee_id" unique="true"></many-to-one>
+  </class>
+</hibernate-mapping>

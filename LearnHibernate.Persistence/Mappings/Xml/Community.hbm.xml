@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="LearnHibernate.Entity"
+                   namespace="LearnHibernate.Entity"
+                   schema="LearnNH"
+                   default-lazy="true">
+  <class name="Community" table="lnh_community" mutable="true">
+    <id name="Id" column="community_id" generator="hilo"></id>
+    <set name="Employees" table="lnh_employee_community" cascade="all-delete-orphan" inverse="true" >
+      <key column="community_id"></key>
+      <many-to-many class="Employee">
+        <column name="employee_id"></column>
+      </many-to-many>
+    </set>
+  </class>
+</hibernate-mapping>

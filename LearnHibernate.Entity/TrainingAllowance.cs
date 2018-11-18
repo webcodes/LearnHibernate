@@ -3,7 +3,7 @@
 
     public class TrainingAllowance : Benefit
     {
-        public int Entitlement { get; set; }
-        public int Remaining { get; set; }
+        public virtual int Entitlement { get; set; }
+        public virtual int Remaining { get; set; }
     }
 }

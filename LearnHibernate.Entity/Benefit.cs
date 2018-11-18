@@ -1,8 +1,10 @@
 ﻿namespace LearnHibernate.Entity
 {
-    public class Benefit
+    public abstract class Benefit : Entity
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
+
+        public virtual Employee Employee { get; set; }
     }
 }

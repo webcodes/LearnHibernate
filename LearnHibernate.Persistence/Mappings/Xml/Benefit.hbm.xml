@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="LearnHibernate.Entity"
+                   namespace="LearnHibernate.Entity"
+                   schema="LearnNH"
+                   default-lazy="true">
+  <class name="Benefit" table="lnh_benefit" mutable="true">
+    <id name="Id" column="benefit_id" generator="hilo"></id>
+    <!--<discriminator column="benefit_type" type="string"></discriminator>-->
+    <property name="Name"></property>
+    <property name="Description" column="desc"></property>
+    <many-to-one name="Employee" class="Employee" column="employee_id"></many-to-one>
+    
+    <!--Table per sub-class-->
+
+    <joined-subclass name="Leave" table="leave_benefit">
+      <key column="leave_id"></key>
+      <property name="AvailableEntitlement" column="leave_available"></property>
+      <property name="RemainingEntitlement" column="leave_remaining"></property>
+      <property name="Type" column="leave_type"></property>
+    </joined-subclass>
+
+    <joined-subclass name="TrainingAllowance" table="training_benefit">
+      <key column="training_allowance_id"></key>
+      <property name="Entitlement" column="training_available"></property>
+      <property name="Remaining" column="training_remaining"></property>
+    </joined-subclass>
+
+    <joined-subclass name="SeasonTicketLoan" table="loan_benefit">
+      <key column="loan_id"></key>
+      <property name="StartDate" column="loan_start_date"></property>
+      <property name="EndDate" column="loan_end_date"></property>
+      <property name="Emi" column="loan_emi"></property>
+    </joined-subclass>
+    
+    <!--Table per class hierarchy strategy-->
+
+    <!--<subclass name="Leave" discriminator-value="LVE">
+      <property name="AvailableEntitlement" column="leave_available"></property>
+      <property name="RemainingEntitlement" column="leave_remaining"></property>
+      <property name="Type" column="leave_type"></property>
+    </subclass>
+
+    <subclass name="TrainingAllowance" discriminator-value="TRA">
+      <property name="Entitlement" column="training_available"></property>
+      <property name="Remaining" column="training_remaining"></property>
+    </subclass>
+
+    <subclass name="SeasonTicketLoan" discriminator-value="STL">
+      <property name="Amount" column="loan_amount"></property>
+      <property name="StartDate" column="loan_start_date"></property>
+      <property name="EndDate" column="loan_end_date"></property>
+      <property name="Emi" column="loan_emi"></property>
+    </subclass>-->
+
+    <!--Table per concrete class-->
+    <!--<union-subclass name="Leave" table="leave_benefit">
+      <property name="AvailableEntitlement" column="leave_available"></property>
+      <property name="RemainingEntitlement" column="leave_remaining"></property>
+      <property name="Type" column="leave_type"></property>
+    </union-subclass>
+
+    <union-subclass name="TrainingAllowance" table="training_benefit">
+      <property name="Entitlement" column="training_available"></property>
+      <property name="Remaining" column="training_remaining"></property>
+    </union-subclass>
+
+    <union-subclass name="SeasonTicketLoan" table="loan_benefit">
+      <property name="StartDate" column="loan_start_date"></property>
+      <property name="EndDate" column="loan_end_date"></property>
+      <property name="Emi" column="loan_emi"></property>
+    </union-subclass>-->
+    
+  </class>
+</hibernate-mapping>

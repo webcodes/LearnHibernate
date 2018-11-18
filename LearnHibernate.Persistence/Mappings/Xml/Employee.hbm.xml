@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="LearnHibernate.Entity" 
+                   namespace="LearnHibernate.Entity" 
+                   schema="LearnNH" 
+                   default-lazy="true">
+  
+  <class name="Employee" mutable="true" table="lnh_employee" lazy="true">
+    <id name="Id" column="employee_id" generator="hilo"></id>
+    <property name="FirstName" column="first_name" length="20" not-null="true"></property>
+    <property name="LastName" column="last_name" length="20" not-null="true"></property>
+    <property name="EmailAddress" column="email_address" length="50"></property>
+    <property name="BirthDate" column="birth_date" not-null="true"></property>
+    <property name="StartDate" column="start_date" not-null="true"></property>
+    <property name="PasswordHash" column="password_hash" length="20" not-null="true"></property>
+    <property name="IsAdmin" column="admin"></property>
+    
+    <set name="Benefits" cascade ="all-delete-orphan" table="lnh_benefit">
+      <key column="employee_id"></key>
+      <one-to-many class="Benefit"/>
+    </set>
+    
+    <set name="Communities" table="lnh_employee_community" cascade="all-delete-orphan">
+      <key>
+        <column name="employee_id"></column>
+      </key>
+      <many-to-many class="Community">
+        <column name="community_id"></column>
+      </many-to-many>
+    </set>
+
+    <!--One to one address entity semantics-->
+    <one-to-one name="MailingAddress" class="Address" property-ref="Employee" cascade="all"></one-to-one>
+  </class>
+</hibernate-mapping>
