@@ -1,5 +1,7 @@
-﻿using NHibernate;
+﻿using LearnHibernate.Persistence.Mappings;
+using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
@@ -36,6 +38,11 @@ namespace LearnHibernate.Persistence.Tests
             var ddlBuilder = new StringBuilder();
             new SchemaExport(config).Execute(true, true, false, Session.Connection, new StringWriter(ddlBuilder));
             Debug.WriteLine(ddlBuilder.ToString());
+        }
+
+        private HbmMapping GetMapping()
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()

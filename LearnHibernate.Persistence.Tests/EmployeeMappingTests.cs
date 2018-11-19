@@ -162,7 +162,7 @@ namespace LearnHibernate.Persistence.Tests
             var communities = new HashSet<Community>
             {
                 new Community { Name ="Community 1" },
-                new Community { Name = "Community 2" }
+                new Community { Name = "Community 2", Description = "Training Community" }
             };
 
             using (var trans = session.BeginTransaction())
@@ -178,6 +178,8 @@ namespace LearnHibernate.Persistence.Tests
             {
                 var employee = await session.GetAsync<Employee>(id);
                 Assert.Equal(2, employee.Communities.Count);
+                Assert.Equal("Community 1", employee.Communities.First().Name);
+                Assert.Equal("Training Community", employee.Communities.Skip(1).First().Description);
                 Assert.Equal("Awesome", employee.Communities.First().Employees.First().FirstName);
                 await trans.CommitAsync();
             }

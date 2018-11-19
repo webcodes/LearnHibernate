@@ -4,7 +4,7 @@
                    namespace="LearnHibernate.Entity"
                    schema="LearnNH"
                    default-lazy="true">
-  <class name="Benefit" table="lnh_benefit" mutable="true">
+  <class name="Benefit" table="benefit" mutable="true">
     <id name="Id" column="benefit_id" generator="hilo"></id>
     <!--<discriminator column="benefit_type" type="string"></discriminator>-->
     <property name="Name"></property>

@@ -1,18 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <None Remove="Mappings\Xml\Benefit.hbm.xml" />
-    <None Remove="Mappings\Xml\Community.hbm.xml" />
-    <None Remove="Mappings\Xml\Employee.hbm.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\Xml\Benefit.hbm.xml" />
-    <EmbeddedResource Include="Mappings\Xml\Community.hbm.xml" />
-    <EmbeddedResource Include="Mappings\Xml\Employee.hbm.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LearnHibernate.Entity\LearnHibernate.Entity.csproj" />
   </ItemGroup>
 

@@ -4,9 +4,11 @@
                    namespace="LearnHibernate.Entity"
                    schema="LearnNH"
                    default-lazy="true">
-  <class name="Community" table="lnh_community" mutable="true">
+  <class name="Community" table="community" mutable="true">
     <id name="Id" column="community_id" generator="hilo"></id>
-    <set name="Employees" table="lnh_employee_community" cascade="all-delete-orphan" inverse="true" >
+    <property name="Name"></property>
+    <property name="Description" column ="desc"></property>
+    <set name="Employees" table="employee_community" cascade="all-delete-orphan" inverse="true" >
       <key column="community_id"></key>
       <many-to-many class="Employee">
         <column name="employee_id"></column>

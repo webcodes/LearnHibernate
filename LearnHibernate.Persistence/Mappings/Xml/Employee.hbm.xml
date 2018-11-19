@@ -5,7 +5,7 @@
                    schema="LearnNH" 
                    default-lazy="true">
   
-  <class name="Employee" mutable="true" table="lnh_employee" lazy="true">
+  <class name="Employee" mutable="true" table="employee" lazy="true">
     <id name="Id" column="employee_id" generator="hilo"></id>
     <property name="FirstName" column="first_name" length="20" not-null="true"></property>
     <property name="LastName" column="last_name" length="20" not-null="true"></property>
@@ -20,7 +20,7 @@
       <one-to-many class="Benefit"/>
     </set>
     
-    <set name="Communities" table="lnh_employee_community" cascade="all-delete-orphan">
+    <set name="Communities" table="employee_community" cascade="all-delete-orphan">
       <key>
         <column name="employee_id"></column>
       </key>
