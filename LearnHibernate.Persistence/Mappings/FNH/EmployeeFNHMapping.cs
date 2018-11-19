@@ -1,8 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
 using LearnHibernate.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LearnHibernate.Persistence.Mappings.FNH
 {
