@@ -66,7 +66,7 @@ namespace LearnHibernate.Persistence.Mappings
             Set(e => e.Communities,
                 mapper => {
                     mapper.Key(k => k.Column("employee_id"));
-                    mapper.Table("lnh_employee_community");
+                    mapper.Table("employee_community");
                     mapper.Cascade(Cascade.DeleteOrphans);
                 },
                 relation => relation.ManyToMany(mapper => {
