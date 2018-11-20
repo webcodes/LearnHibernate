@@ -23,7 +23,7 @@ namespace LearnHibernate.Persistence.Mappings
 
             Set(c => c.Employees, mapper => {
                 mapper.Table("employee_community");
-                mapper.Cascade(Cascade.DeleteOrphans);
+                mapper.Cascade(Cascade.All|Cascade.DeleteOrphans);
                 mapper.Inverse(true);
                 mapper.Key(k => k.Column("community_id"));
             },

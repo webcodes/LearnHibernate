@@ -53,7 +53,7 @@ namespace LearnHibernate.Persistence.Mappings
             Set(e => e.Benefits, 
                 mapper => {
                     mapper.Key(k => k.Column("employee_id"));
-                    mapper.Cascade(Cascade.DeleteOrphans);
+                    mapper.Cascade(Cascade.All|Cascade.DeleteOrphans);
                 }, 
                 relation => relation.OneToMany(mapping => mapping.Class(typeof(Benefit))));
 
@@ -67,7 +67,7 @@ namespace LearnHibernate.Persistence.Mappings
                 mapper => {
                     mapper.Key(k => k.Column("employee_id"));
                     mapper.Table("employee_community");
-                    mapper.Cascade(Cascade.DeleteOrphans);
+                    mapper.Cascade(Cascade.All|Cascade.DeleteOrphans);
                 },
                 relation => relation.ManyToMany(mapper => {
                     mapper.Column("community_id");
