@@ -5,6 +5,7 @@ using LearnHibernate.Persistence.Mappings.FNH;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
+using NHibernate.Context;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
@@ -12,6 +13,7 @@ using NHibernate.Tool.hbm2ddl;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using Environment = NHibernate.Cfg.Environment;
 
@@ -63,8 +65,16 @@ namespace LearnHibernate.Persistence.Tests
                     .DefaultSchema("LearnNH")
                     .ShowSql()
                     .FormatSql()
+                    //.AdoNetBatchSize(50)
                     .InMemory())
-                .Mappings(mapper => mapper.FluentMappings.AddFromAssembly(typeof(EmployeeFNHMapping).Assembly));
+            //.CurrentSessionContext<AsyncLocalSessionContext>()
+            //.Cache(cacheBuilder => {
+            //    cacheBuilder.UseQueryCache();
+            //    cacheBuilder.UseSecondLevelCache();
+            //})
+            //either of the below is fine. Latter is terse
+            //.Mappings(mapper => mapper.FluentMappings.AddFromAssembly(typeof(EmployeeFNHMapping).Assembly))
+            .Mappings(mapper => mapper.FluentMappings.AddFromAssemblyOf<EmployeeFNHMapping>());
 
             var config = fnhConfig.BuildConfiguration();
             #endregion
@@ -72,20 +82,32 @@ namespace LearnHibernate.Persistence.Tests
             sessionFactory = config.BuildSessionFactory();
             Session = sessionFactory.OpenSession();
 
-            var ddlBuilder = new StringBuilder();
-            new SchemaExport(config).Execute(true, true, false, Session.Connection, new StringWriter(ddlBuilder));
-            Debug.WriteLine(ddlBuilder.ToString());
+            new SchemaExport(config)
+                .SetOutputFile(@".\ddl.sql")
+                //.Create(false, true);
+                .Execute(true, true, false, Session.Connection, null);
+
+            //To increment update database
+            //new SchemaUpdate(config).Execute(false, true);
+
+            //validate that the schema and mappings are in compliance
+            //this is ideal for an integration test?
+            //new SchemaValidator(config).Validate();
+
         }
 
         private HbmMapping GetMapping()
         {
             var mapper = new ModelMapper();
-            mapper.AddMapping<EmployeeMapping>();
-            mapper.AddMapping<BenefitMapping>();
-            mapper.AddMapping<LeaveMapping>();
-            mapper.AddMapping<SeasonTicketLoanMapping>();
-            mapper.AddMapping<TrainingAllowanceMapping>();
-            mapper.AddMapping<CommunityMapping>();
+            //mapper.AddMapping<EmployeeMapping>();
+            //mapper.AddMapping<BenefitMapping>();
+            //mapper.AddMapping<LeaveMapping>();
+            //mapper.AddMapping<SeasonTicketLoanMapping>();
+            //mapper.AddMapping<TrainingAllowanceMapping>();
+            //mapper.AddMapping<CommunityMapping>();
+
+            //The above explicit mappings can be replaced by
+            mapper.AddMappings(typeof(EmployeeMapping).Assembly.GetTypes());
             return mapper.CompileMappingForAllExplicitlyAddedEntities();
         }
 

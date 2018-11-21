@@ -10,12 +10,11 @@ namespace LearnHibernate.Persistence.Tests
 {
     public class EmployeeMappingTests
     {
-        private readonly InMemoryMappingDatabase database;
         private readonly ISession session;
 
         public EmployeeMappingTests()
         {
-            database = new InMemoryMappingDatabase();
+            var database = new InMemoryMappingDatabase();
             session = database.Session;
         }
 
