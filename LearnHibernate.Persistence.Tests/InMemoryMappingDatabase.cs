@@ -79,6 +79,7 @@ namespace LearnHibernate.Persistence.Tests
             var config = fnhConfig.BuildConfiguration();
             #endregion
 
+
             sessionFactory = config.BuildSessionFactory();
             Session = sessionFactory.OpenSession();
 

@@ -10,7 +10,6 @@ namespace LearnHibernate.Persistence.Tests
 {
     public class EmployeeMappingTests
     {
-        private readonly ISession session;
 
         public EmployeeMappingTests()
         {
@@ -18,39 +17,23 @@ namespace LearnHibernate.Persistence.Tests
             session = database.Session;
         }
 
-        private static Employee GetDummyEmployee()
-        {
-            var birthDate = DateTime.UtcNow.AddYears(-30).Date;
-            var startDate = DateTime.UtcNow.AddYears(-1).Date;
-            return new Employee
-            {
-                FirstName = "Awesome",
-                LastName = "Developer",
-                EmailAddress = "awesome@developer.com",
-                IsAdmin = true,
-                PasswordHash = "secret",
-                StartDate = startDate,
-                BirthDate = birthDate
-            };
-        }
-
         [Fact]
         public async Task Employee_PrimitiveMapping_IsValid()
         {
             object id = 0;
-            
-            using (var trans = session.BeginTransaction())
+
+            using (var trans = this.session.BeginTransaction())
             {
-                id = await session.SaveAsync(GetDummyEmployee());
+                id = await this.session.SaveAsync(GetDummyEmployee());
                 await trans.CommitAsync();
             }
 
-            session.Clear();
+            this.session.Clear();
 
             var dummyEmployee = GetDummyEmployee();
-            using (var trans = session.BeginTransaction())
+            using (var trans = this.session.BeginTransaction())
             {
-                var employee = await session.GetAsync<Employee>(id);
+                var employee = await this.session.GetAsync<Employee>(id);
                 Assert.Equal(dummyEmployee.FirstName, employee.FirstName);
                 Assert.Equal(dummyEmployee.LastName, employee.LastName);
                 Assert.Equal(dummyEmployee.EmailAddress, employee.EmailAddress);
@@ -68,7 +51,7 @@ namespace LearnHibernate.Persistence.Tests
         {
             object id = 0;
             var dummy = GetDummyEmployee();
-            using (var trans = session.BeginTransaction())
+            using (var trans = this.session.BeginTransaction())
             {
                 dummy.Benefits = new HashSet<Benefit> {
                     new Leave
@@ -88,18 +71,18 @@ namespace LearnHibernate.Persistence.Tests
                     {
                         Entitlement = 500,
                         Remaining = 100
-                        
+
                     }
                 };
-                id = await session.SaveAsync(dummy);
+                id = await this.session.SaveAsync(dummy);
                 await trans.CommitAsync();
             }
 
-            session.Clear();
+            this.session.Clear();
 
-            using (var trans = session.BeginTransaction())
+            using (var trans = this.session.BeginTransaction())
             {
-                var employee = await session.GetAsync<Employee>(id);
+                var employee = await this.session.GetAsync<Employee>(id);
                 Assert.NotNull(employee.Benefits);
                 Assert.Equal(3, employee.Benefits.Count);
 
@@ -183,5 +166,23 @@ namespace LearnHibernate.Persistence.Tests
                 await trans.CommitAsync();
             }
         }
+
+        private static Employee GetDummyEmployee()
+        {
+            var birthDate = DateTime.UtcNow.AddYears(-30).Date;
+            var startDate = DateTime.UtcNow.AddYears(-1).Date;
+            return new Employee
+            {
+                FirstName = "Awesome",
+                LastName = "Developer",
+                EmailAddress = "awesome@developer.com",
+                IsAdmin = true,
+                PasswordHash = "secret",
+                StartDate = startDate,
+                BirthDate = birthDate
+            };
+        }
+
+        private readonly ISession session;
     }
 }
