@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-namespace LearnHibernate.Api.Controllers
+﻿namespace LearnHibernate.Api.Controllers
 {
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc;
+    using Serilog;
+
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly ILogger logger;
+
+        public ValuesController(ILogger logger)
+        {
+            this.logger = logger;
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            this.logger.Information("Testing if we got a Contextuial Logger without having registered serilog");
             return new string[] { "value1", "value2" };
         }
 

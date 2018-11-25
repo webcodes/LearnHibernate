@@ -1,23 +1,44 @@
 ﻿namespace LearnHibernate.Api
 {
     using System;
+    using System.Linq;
     using DryIoc;
     using LearnHibernate.Api.Decorators;
+    using LearnHibernate.Api.Middleware;
     using LearnHibernate.Core;
     using LearnHibernate.Core.Commands.Employee;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
 
-    internal class CompositionRoot
+    public class CompositionRoot
     {
+        private readonly IContainer container;
+        private readonly IConfiguration configuration;
+
         public CompositionRoot(IContainer container)
         {
-            RegisterSerilog(container);
+            this.container = container;
+            this.configuration = container.Resolve<IConfiguration>();
+            //RegisterSerilog(container);
 
             RegisterNHibernate(container);
 
-            //TODO: Register SSO auth 
-
             RegisterCommandHandlers(container);
             RegisterQueryHandlers(container);
+
+            var env = container.Resolve<IHostingEnvironment>();
+
+            if (env.IsDevelopment())
+            {
+                container.Register<FakeSiteMinderContextMiddleware>(Reuse.Singleton);
+            }
+            else
+            {
+                container.Register<SiteMinderContextMiddleware>(Reuse.Singleton);
+            }
+
+            container.Register<GESClaimsMiddleware>(Reuse.Singleton);
+
             var errors = container.Validate();
         }
 
@@ -41,7 +62,8 @@
 
             container.RegisterMany(
                 new[] { typeof(AddEmployeeCommandHandler).Assembly },
-                serviceTypeCondition: type => type.IsInterface && type == typeof(ICommandHandler<>));
+                serviceTypeCondition: type => type.IsInterface && type == typeof(ICommandHandler<>),
+                reuse: Reuse.Scoped);
             container.Register(typeof(ICommandHandler<>), typeof(LoggingCommandHandlerDecorator<>), setup: Setup.DecoratorWith(order: 4));
             container.Register(typeof(ICommandHandler<>), typeof(AuthorizationCommandHandlerDecorator<>), setup: Setup.DecoratorWith(order: 3));
             container.Register(typeof(ICommandHandler<>), typeof(ValidationCommandHandlerDecorator<>), setup: Setup.DecoratorWith(order: 2));
@@ -89,17 +111,23 @@
             #endregion
         }
 
-        private static void RegisterSerilog(IContainer container)
+        public bool IsValid()
         {
-            // default logger
-            container.Register(
-                Made.Of(() => Serilog.Log.Logger),
-                setup: Setup.With(condition: r => r.Parent.ImplementationType == null));
-
-            // contextual logger
-            container.Register(
-                Made.Of(() => Serilog.Log.ForContext(Arg.Index<Type>(0)), r => r.Parent.ImplementationType),
-                setup: Setup.With(condition: r => r.Parent.ImplementationType != null));
+            var errorsCollection = this.container.Validate();
+            return errorsCollection.Any();
         }
+
+        //private static void RegisterSerilog(IContainer container)
+        //{
+        //    // default logger
+        //    container.Register(
+        //        Made.Of(() => Serilog.Log.Logger),
+        //        setup: Setup.With(condition: r => r.Parent.ImplementationType == null));
+
+        //    // contextual logger
+        //    container.Register(
+        //        Made.Of(() => Serilog.Log.ForContext(Arg.Index<Type>(0)), r => r.Parent.ImplementationType),
+        //        setup: Setup.With(condition: r => r.Parent.ImplementationType != null));
+        //}
     }
 }

@@ -16,9 +16,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ToDo.md = ToDo.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnHibernate.Core", "LearnHibernate.Core\LearnHibernate.Core.csproj", "{C6D3BB50-5882-4DE2-83A2-8A94A06A5E31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnHibernate.Core", "LearnHibernate.Core\LearnHibernate.Core.csproj", "{C6D3BB50-5882-4DE2-83A2-8A94A06A5E31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnHibernate.Pocos", "LearnHibernate.Pocos\LearnHibernate.Pocos.csproj", "{7602B76A-BECC-4193-A8D7-D577CA8B8645}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnHibernate.Pocos", "LearnHibernate.Pocos\LearnHibernate.Pocos.csproj", "{7602B76A-BECC-4193-A8D7-D577CA8B8645}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnHibernate.Proxy", "LearnHibernate.Proxy\LearnHibernate.Proxy.csproj", "{385546F2-78E2-4F6E-8ABB-9FE06AF4ECA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningHibernate.Proxy.Fake", "LearningHibernate.Proxy.Fake\LearningHibernate.Proxy.Fake.csproj", "{5877EC2C-D51E-46FE-9FFC-61BD39297030}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnHibernate.Api.Tests", "LearnHibernate.Api.Tests\LearnHibernate.Api.Tests.csproj", "{26CCAF32-0508-49E1-865A-B826D329E27F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +56,18 @@ Global
 		{7602B76A-BECC-4193-A8D7-D577CA8B8645}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7602B76A-BECC-4193-A8D7-D577CA8B8645}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7602B76A-BECC-4193-A8D7-D577CA8B8645}.Release|Any CPU.Build.0 = Release|Any CPU
+		{385546F2-78E2-4F6E-8ABB-9FE06AF4ECA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{385546F2-78E2-4F6E-8ABB-9FE06AF4ECA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{385546F2-78E2-4F6E-8ABB-9FE06AF4ECA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{385546F2-78E2-4F6E-8ABB-9FE06AF4ECA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5877EC2C-D51E-46FE-9FFC-61BD39297030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5877EC2C-D51E-46FE-9FFC-61BD39297030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5877EC2C-D51E-46FE-9FFC-61BD39297030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5877EC2C-D51E-46FE-9FFC-61BD39297030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26CCAF32-0508-49E1-865A-B826D329E27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26CCAF32-0508-49E1-865A-B826D329E27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26CCAF32-0508-49E1-865A-B826D329E27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26CCAF32-0508-49E1-865A-B826D329E27F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
