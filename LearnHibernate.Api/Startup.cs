@@ -17,8 +17,6 @@
 
     public class Startup
     {
-        private IContainer container;
-
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             this.Configuration = configuration;
@@ -59,10 +57,11 @@
                 services.AddFakeGESProxy();
             }
 
-            this.container = new Container(r => r.WithConcreteTypeDynamicRegistrations())
+            // override convention rule to automatically resolve non registered concrete classes.
+            var container = new Container(r => r.WithConcreteTypeDynamicRegistrations())
                 .WithDependencyInjectionAdapter(services)
                 .WithCompositionRoot<CompositionRoot>();
-            return this.container.ConfigureServiceProvider<CompositionRoot>();
+            return container.ConfigureServiceProvider<CompositionRoot>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,11 +81,5 @@
             app.UseMiddleware<GESClaimsMiddleware>();
             app.UseMvc();
         }
-
-        // public bool ValidateServiceRegistrations()
-        // {
-        //    var errors = this.container.Validate();
-        //    return errors.Any();
-        // }
     }
 }

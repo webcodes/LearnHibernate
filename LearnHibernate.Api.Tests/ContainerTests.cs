@@ -38,7 +38,6 @@
             services.AddFakeGESProxy();
 
             var container = new Container(r => r.WithConcreteTypeDynamicRegistrations())
-            //.WithUnknownServiceResolvers(Rules.AutoFallbackDynamicRegistrations(new List<Assembly> { typeof(Startup).Assembly })
                 .WithDependencyInjectionAdapter(services)
                 .WithCompositionRoot<CompositionRoot>();
 
@@ -48,6 +47,7 @@
 
             Assert.NotNull(container.Resolve<IValidator>());
             Assert.NotNull(container.Resolve<FakeSiteMinderContextMiddleware>());
+
             // Serilog registration shows an error on Validate call although it works as expected.
             // Seems like a problem with Validate call.
             Assert.Empty(errors);
@@ -72,41 +72,16 @@
                 .WithDependencyInjectionAdapter(services)
                 .WithCompositionRoot<CompositionRoot>();
 
-            //Expect to resolve app level dependencies correctly?
-            //Anything that is in LearnHibernate assemblies?
+            // Expect to resolve app level dependencies correctly?
+            // Anything that is in LearnHibernate assemblies?
             var errors = container.Validate(svcRegInfo =>
             svcRegInfo.ServiceType.AssemblyQualifiedName
             .StartsWith("LearnHibernate"));
 
-            //TODO: Additional assertions for env specific dependency registrations
+            // TODO: Additional assertions for env specific dependency registrations
             Assert.NotNull(container.Resolve<IValidator>());
             Assert.NotNull(container.Resolve<SiteMinderContextMiddleware>());
-            Assert.NotNull(container.Resolve<GESClaimsMiddleware>());
             Assert.Empty(errors);
-            //Assert.Empty(errors.Where(e => e.Key.ServiceType != typeof(Serilog.ILogger)));
         }
-
-        /// This is an alternate way to validate all the registrations. But
-        /// this will fail since most of the f/w level dependencies will not be registered.
-
-        //[Fact]
-        //public void AlternativeWay()
-        //{
-        //    var configuration = new ConfigurationBuilder()
-        //        .SetBasePath(Utility.GetContentRootPath())
-        //        .AddJsonFile("appsettings.json")
-        //        .Build();
-
-        //    var env = new HostingEnvironment
-        //    {
-        //        EnvironmentName = "Development",
-        //    };
-        //    var startup = new Startup(configuration, env);
-        //    var services = new ServiceCollection();
-        //    services.AddTransient<IConfiguration>(sp => configuration);
-        //    services.AddTransient<IHostingEnvironment>(sp => env);
-        //    startup.ConfigureServices(services);
-        //    Assert.True(startup.ValidateServiceRegistrations());
-        //}
     }
 }
