@@ -19,7 +19,7 @@
         {
             this.container = container;
             this.configuration = container.Resolve<IConfiguration>();
-            //RegisterSerilog(container);
+            RegisterSerilog(container);
 
             RegisterNHibernate(container);
 
@@ -28,16 +28,16 @@
 
             var env = container.Resolve<IHostingEnvironment>();
 
-            if (env.IsDevelopment())
-            {
-                container.Register<FakeSiteMinderContextMiddleware>(Reuse.Singleton);
-            }
-            else
-            {
-                container.Register<SiteMinderContextMiddleware>(Reuse.Singleton);
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    container.Register<FakeSiteMinderContextMiddleware>(Reuse.Singleton);
+            //}
+            //else
+            //{
+            //    container.Register<SiteMinderContextMiddleware>(Reuse.Singleton);
+            //}
 
-            container.Register<GESClaimsMiddleware>(Reuse.Singleton);
+            //container.Register<GESClaimsMiddleware>(Reuse.Singleton);
 
             var errors = container.Validate();
         }
@@ -117,17 +117,17 @@
             return errorsCollection.Any();
         }
 
-        //private static void RegisterSerilog(IContainer container)
-        //{
-        //    // default logger
-        //    container.Register(
-        //        Made.Of(() => Serilog.Log.Logger),
-        //        setup: Setup.With(condition: r => r.Parent.ImplementationType == null));
+        private static void RegisterSerilog(IContainer container)
+        {
+            // default logger
+            container.Register(
+                Made.Of(() => Serilog.Log.Logger),
+                setup: Setup.With(condition: r => r.Parent.ImplementationType == null));
 
-        //    // contextual logger
-        //    container.Register(
-        //        Made.Of(() => Serilog.Log.ForContext(Arg.Index<Type>(0)), r => r.Parent.ImplementationType),
-        //        setup: Setup.With(condition: r => r.Parent.ImplementationType != null));
-        //}
+            // contextual logger
+            container.Register(
+                Made.Of(() => Serilog.Log.ForContext(Arg.Index<Type>(0)), r => r.Parent.ImplementationType),
+                setup: Setup.With(condition: r => r.Parent.ImplementationType != null));
+        }
     }
 }
